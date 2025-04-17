@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './MessengerApp.css';
 import './App.css';
 import FriendsList from './components/FriendsList';
 import ChatWindow from './components/ChatWindow';
