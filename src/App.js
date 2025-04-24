@@ -3,6 +3,8 @@ import "./App.css";
 import FriendsList from "./components/FriendsList";
 import ChatWindow from "./components/ChatWindow";
 
+//TODO addfriend interface
+
 function App() {
   // Sample data for friends
   const initialFriends = [

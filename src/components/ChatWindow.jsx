@@ -1,5 +1,5 @@
 // File: src/components/ChatWindow.js
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import MessageInput from "./MessageInput";
 
 function ChatWindow({ friend, messages, onSendMessage, isMobileView, onBack }) {
