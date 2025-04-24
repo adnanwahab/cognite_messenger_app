@@ -1,20 +1,30 @@
-import React, { useState } from 'react';
-import './App.css';
-import FriendsList from './components/FriendsList';
-import ChatWindow from './components/ChatWindow';
+import React, { useState } from "react";
+import "./App.css";
+import FriendsList from "./components/FriendsList";
+import ChatWindow from "./components/ChatWindow";
 
 function App() {
   // Sample data for friends
   const initialFriends = [
-    { id: 1, name: 'Alice', avatar: '👩' },
-    { id: 2, name: 'Bob', avatar: '👨' },
-    { id: 3, name: 'Charlie', avatar: '🧑' },
-    { id: 4, name: 'Diana', avatar: '👱‍♀️' },
+    { id: 1, name: "Alice", avatar: "👩" },
+    { id: 2, name: "Bob", avatar: "👨" },
+    { id: 3, name: "Charlie", avatar: "🧑" },
+    { id: 4, name: "Diana", avatar: "👱‍♀️" },
   ];
 
   // Initial empty chat messages for each friend
   const initialChats = {
-    1: [],
+    1: [
+      {
+        id: 0,
+        text: "Hi there! 👋",
+        sender: "friend",
+        timestamp: new Date().toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
+      },
+    ],
     2: [],
     3: [],
     4: [],
@@ -33,22 +43,25 @@ function App() {
       setIsMobileView(mobile);
     };
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   // Function to handle sending a new message
   const handleSendMessage = (message) => {
-    if (message.trim() === '') return;
-    
+    if (message.trim() === "") return;
+
     const newMessage = {
       id: Date.now(),
       text: message,
-      sender: 'user',
-      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      sender: "user",
+      timestamp: new Date().toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
     };
 
-    setChats(prevChats => ({
+    setChats((prevChats) => ({
       ...prevChats,
       [selectedFriend.id]: [...prevChats[selectedFriend.id], newMessage],
     }));
@@ -76,16 +89,16 @@ function App() {
         {/* In mobile view, we toggle between friends list and chat */}
         {isMobileView ? (
           !showChat ? (
-            <FriendsList 
-              friends={friends} 
-              selectedFriend={selectedFriend} 
-              onSelectFriend={handleSelectFriend} 
+            <FriendsList
+              friends={friends}
+              selectedFriend={selectedFriend}
+              onSelectFriend={handleSelectFriend}
             />
           ) : (
-            <ChatWindow 
-              friend={selectedFriend} 
-              messages={chats[selectedFriend.id]} 
-              onSendMessage={handleSendMessage} 
+            <ChatWindow
+              friend={selectedFriend}
+              messages={chats[selectedFriend.id]}
+              onSendMessage={handleSendMessage}
               isMobileView={true}
               onBack={handleBackToFriends}
             />
@@ -93,15 +106,15 @@ function App() {
         ) : (
           // In desktop view, we show both components
           <>
-            <FriendsList 
-              friends={friends} 
-              selectedFriend={selectedFriend} 
-              onSelectFriend={handleSelectFriend} 
+            <FriendsList
+              friends={friends}
+              selectedFriend={selectedFriend}
+              onSelectFriend={handleSelectFriend}
             />
-            <ChatWindow 
-              friend={selectedFriend} 
-              messages={chats[selectedFriend.id]} 
-              onSendMessage={handleSendMessage} 
+            <ChatWindow
+              friend={selectedFriend}
+              messages={chats[selectedFriend.id]}
+              onSendMessage={handleSendMessage}
               isMobileView={false}
             />
           </>
